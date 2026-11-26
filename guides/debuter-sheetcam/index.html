@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Débuter avec SheetCam en français — CoupeFab</title>
+  <meta name="description" content="Compagnon francophone pour démarrer dans SheetCam : unités, job, import DXF, opération plasma et imbricage. Brouillon à réviser.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://couperfab.vercel.app/guides/debuter-sheetcam/">
+  <link rel="alternate" hreflang="fr-CA" href="https://couperfab.vercel.app/guides/debuter-sheetcam/">
+  <link rel="alternate" hreflang="en-CA" href="https://couperfab.vercel.app/en/guides/getting-started-sheetcam/">
+  <link rel="alternate" hreflang="x-default" href="https://couperfab.vercel.app/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Débuter avec SheetCam en français — CoupeFab">
+  <meta property="og:description" content="Compagnon francophone pour démarrer dans SheetCam : unités, job, import DXF, opération plasma et imbricage. Brouillon à réviser.">
+  <meta property="og:url" content="https://couperfab.vercel.app/guides/debuter-sheetcam/">
+  <meta property="og:locale" content="fr_CA">
+  <meta property="og:locale:alternate" content="en_CA">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Débuter avec SheetCam en français — CoupeFab",
+  "description": "Compagnon francophone pour démarrer dans SheetCam : unités, job, import DXF, opération plasma et imbricage. Brouillon à réviser.",
+  "inLanguage": "fr-CA",
+  "dateModified": "2026-11-26",
+  "url": "https://couperfab.vercel.app/guides/debuter-sheetcam/",
+  "author": {
+    "@type": "Organization",
+    "name": "CoupeFab"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "CoupeFab",
+    "url": "https://couperfab.vercel.app/"
+  }
+}
+</script>
+</head>
+<body>
+  <a class="skip" href="#contenu">Aller au contenu</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="6" fill="#1B1D1B"/>
+          <path d="M5 11h22M5 21h22M5 16h9.2M18.2 16H27" stroke="#F4F1EA" stroke-width="2"/>
+          <rect x="14.2" y="14.2" width="4" height="3.6" fill="#B54300"/>
+        </svg>
+        Coupe<span>Fab</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-primary">Menu</button>
+      <nav class="primary" id="nav-primary">
+        <a href="/">Accueil</a><a href="/guides/" aria-current="page">Guides</a><a href="/occasions/">Occasions Québec</a><a href="/prix/">Prix des tôles</a><a href="/infolettre/">Infolettre</a><a href="/a-propos/">À propos</a><div class="lang-switch" role="navigation" aria-label="Langue"><a href="/guides/debuter-sheetcam/" hreflang="fr" aria-current="true">FR</a><a href="/en/guides/getting-started-sheetcam/" hreflang="en">EN</a></div>
+      </nav>
+    </div>
+  </header>
+  <div class="draft-banner" role="status"><strong>Brouillon — à réviser par Michaël.</strong> Cette page n’est pas encore une version publiée. Les paramètres de coupe et les prix ne sont cités que lorsqu’une source publique les donne.</div>
+  <main id="contenu">
+  
+  
+<div class="wrap prose">
+  <p class="crumb"><a href="/guides/">Guides</a> · SheetCam</p>
+  <h1>Débuter avec SheetCam en français</h1>
+  <p class="meta">Brouillon · mis à jour le 26 novembre 2026 · à réviser par Michaël</p>
+  <p class="lede">SheetCam est un logiciel de FAO (CAM) pour la découpe 2D — plasma, oxycoupage, jet d’eau, laser. Ce n’est pas un logiciel de DAO. Les manuels officiels sont en anglais ; cette page est un compagnon francophone, pas un substitut.</p>
+
+  <h2>Où trouver l’officiel</h2>
+  <p>Chez <a href="https://sheetcamshop.myshopify.com/pages/support">SheetCam LLC (page Support Manuals)</a> : guide de démarrage rapide 8.0, guide d’imbricage automatique, guide 2D CAD, et le manuel (formats A4 et US Letter, y compris une version « plasma, unités métriques »). Dans le logiciel : menu <strong>Help → Tutorials</strong> pour des démarches pas à pas.</p>
+  <p>La version d’essai, d’après une réponse de l’équipe SheetCam sur le <a href="https://forum.sheetcam.com/t/where-to-learn-sheetcam/8102">forum officiel</a>, est le même exécutable que la version licenciée, sans limite de temps, mais elle ne produit qu’environ 180 lignes de G-code. Téléchargement : le site de SheetCam LLC.</p>
+
+  <h2>Deux réglages d’unités, souvent confondus</h2>
+  <p>Même source (équipe SheetCam, forum) : il y a <strong>deux</strong> endroits pour les unités linéaires, et ils sont indépendants.</p>
+  <ul>
+    <li><strong>Options → Application options</strong> : unités du canevas de conception.</li>
+    <li><strong>Options → Machine → Post Processor</strong> : unités du G-code envoyé à la machine.</li>
+  </ul>
+  <p>Ils n’ont pas à être identiques, mais un décalage mal compris donne des pièces trop petites ou trop grandes. Vérifiez les deux avant le premier essai.</p>
+  <div class="callout warn"><p>Les tutoriels intégrés, toujours selon cette même note officielle, <strong>modifient les Options / Job options</strong> (matière, zone de travail, taille de table). Prévoyez de les remettre à votre machine après le tutoriel.</p></div>
+
+  <h2>Démarche typique (sans paramètres inventés)</h2>
+  <p>La séquence ci-dessous reprend le flux documenté par SheetCam et des guides d’utilisation publics (notamment le démarrage rapide publié par des intégrateurs). Les valeurs de jeu, de longueur d’entrée et de vitesse doivent venir de <em>votre</em> source plasma, de votre post-processeur et de vos essais — pas de cette page.</p>
+  <ol>
+    <li><strong>Nouveau job.</strong> File → New job. Puis Options → Job options : zone de travail, épaisseur si vous la suivez ici, origine (souvent le coin inférieur gauche, X0,Y0), hauteur de dégagement des rapides. Validez.</li>
+    <li><strong>Importer le dessin.</strong> File → Import drawing… (DXF, SVG, etc.). Dans le dialogue, alignez l’échelle et les unités sur le fichier. Si la pièce est minuscule ou énorme, c’est presque toujours un conflit d’unités : réimportez.</li>
+    <li><strong>Vérifier la géométrie.</strong> Contours ouverts, traits en double, ou blocs non explosés se règlent idéalement dans le DAO (voir le guide BricsCAD). SheetCam offre aussi des outils de réparation : utilisez-les en sachant ce que vous changez.</li>
+    <li><strong>Minimum requis pour un parcours.</strong> D’après l’équipe SheetCam : au moins une <strong>pièce</strong> (Part — un import DXF arrive déjà dans une pièce), une <strong>couche</strong> (Layer), un <strong>outil</strong> (idéalement deux, pour les règles et comparaisons), et une <strong>opération</strong> (pour le plasma : Jet / Plasma Cut).</li>
+    <li><strong>Opération plasma.</strong> Operations → New operation → Plasma Cut. Méthode de contour typique : extérieur pour le profil, intérieur pour les trous, sans décalage pour un traçage. Choisissez la couche et l’outil. Les entrées/sorties (lead-in / lead-out) et le sens de coupe dépendent de votre chalumeau et de votre charte — ne copiez pas une longueur « standard » trouvée au hasard.</li>
+    <li><strong>Post-processeur.</strong> Options → Machine → Post Processor : choisissez celui qui correspond à votre commande. S’il n’est pas dans la bibliothèque, SheetCam documente une API et peut citer un travail sur mesure (sales@sheetcam.com, d’après le forum officiel). Puis File → Post process pour écrire le fichier NC.</li>
+  </ol>
+
+  <h2>Imbricage automatique (version 8)</h2>
+  <p>Selon la FAQ et le guide rapide v8 de SheetCam, l’imbricage automatique s’appuie sur les <strong>parcours déjà créés</strong> (décalage de kerf, entrées et sorties), pas seulement sur le contour. Si vous ouvrez le module sans opération, il ne fait rien. Le logiciel calcule plusieurs variantes ; vous en choisissez une, puis Apply. L’imbricage manuel reste disponible.</p>
+
+  <h2>Ce que cette page ne fait pas</h2>
+  <p>Elle ne donne pas de tableau de vitesses, de kerf ou d’avance « pour l’acier doux X mm ». Ces chiffres doivent venir de la charte du fabricant de votre source, puis d’essais sur votre table. Voir le guide <a href="/guides/kerf-qualite-coupe/">Kerf et qualité de coupe</a>.</p>
+
+  <h2>À valider en atelier (Michaël)</h2>
+  <ul>
+    <li>Quels post-processeurs sont réellement utilisés dans les ateliers québécois que vous connaissez (Machitech, FastCAM, contrôleurs courants, etc.) ?</li>
+    <li>Un modèle de job typique (taille de table, origine, unités) à proposer en exemple, sans le présenter comme universel.</li>
+    <li>Toute imprécision sur les menus de la v8 par rapport à votre copie de travail.</li>
+  </ul>
+
+  <h2>Sources</h2>
+  <ul class="source-list">
+    <li><a href="https://sheetcamshop.myshopify.com/pages/support">SheetCam LLC — Support Manuals</a> (guides 8.0 et manuels officiels, consulté le 26 novembre 2026).</li>
+    <li><a href="https://forum.sheetcam.com/t/where-to-learn-sheetcam/8102">Forum SheetCam — « Where to learn Sheetcam »</a>, réponse de l’équipe (sheetcamCS2), 10 septembre 2024.</li>
+    <li>FAQ / aperçu SheetCAM v8.0.1 (imbricage automatique : l’opération doit exister avant le module).</li>
+  </ul>
+</div>
+
+  </main>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <a class="brand" href="/" style="color:#fffcf6">Coupe<span>Fab</span></a>
+        <p>Ressource francophone d’abord, pour les ateliers de découpe plasma et de fabrication métallique au Québec.</p>
+      </div>
+      <div>
+        <h2>Explorer</h2>
+        <p><a href="/guides/">Guides</a> / <a href="/occasions/">Occasions Québec</a> / <a href="/prix/">Prix des tôles</a> / <a href="/infolettre/">Infolettre</a></p>
+      </div>
+      <div>
+        <h2>Mentions</h2>
+        <p><a href="/a-propos/">À propos / contact</a><br><a href="/divulgation/">Divulgation (affiliations)</a><br><a href="/confidentialite/">Confidentialité et consentement (CASL)</a></p>
+      </div>
+    </div>
+    <p class="legal">© 2026 CoupeFab. Tous droits réservés. Consultation des sources publiques le 26 novembre 2026, fuseau America/Toronto (UTC−5). Aucun lien d’affiliation pour le moment.</p>
+  </footer>
+  <script src="/js/site.js" defer></script>
+</body>
+</html>
