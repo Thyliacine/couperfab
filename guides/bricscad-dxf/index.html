@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>De BricsCAD à un DXF propre — CoupeFab</title>
+  <meta name="description" content="Exporter un DXF propre depuis BricsCAD avec DXFOUT, la précision décimale et le nettoyage des objets mandataires. Brouillon à réviser.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://couperfab.vercel.app/guides/bricscad-dxf/">
+  <link rel="alternate" hreflang="fr-CA" href="https://couperfab.vercel.app/guides/bricscad-dxf/">
+  <link rel="alternate" hreflang="en-CA" href="https://couperfab.vercel.app/en/guides/bricscad-to-clean-dxf/">
+  <link rel="alternate" hreflang="x-default" href="https://couperfab.vercel.app/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="De BricsCAD à un DXF propre — CoupeFab">
+  <meta property="og:description" content="Exporter un DXF propre depuis BricsCAD avec DXFOUT, la précision décimale et le nettoyage des objets mandataires. Brouillon à réviser.">
+  <meta property="og:url" content="https://couperfab.vercel.app/guides/bricscad-dxf/">
+  <meta property="og:locale" content="fr_CA">
+  <meta property="og:locale:alternate" content="en_CA">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "De BricsCAD à un DXF propre — CoupeFab",
+  "description": "Exporter un DXF propre depuis BricsCAD avec DXFOUT, la précision décimale et le nettoyage des objets mandataires. Brouillon à réviser.",
+  "inLanguage": "fr-CA",
+  "dateModified": "2026-11-26",
+  "url": "https://couperfab.vercel.app/guides/bricscad-dxf/",
+  "author": {
+    "@type": "Organization",
+    "name": "CoupeFab"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "CoupeFab",
+    "url": "https://couperfab.vercel.app/"
+  }
+}
+</script>
+</head>
+<body>
+  <a class="skip" href="#contenu">Aller au contenu</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="6" fill="#1B1D1B"/>
+          <path d="M5 11h22M5 21h22M5 16h9.2M18.2 16H27" stroke="#F4F1EA" stroke-width="2"/>
+          <rect x="14.2" y="14.2" width="4" height="3.6" fill="#B54300"/>
+        </svg>
+        Coupe<span>Fab</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-primary">Menu</button>
+      <nav class="primary" id="nav-primary">
+        <a href="/">Accueil</a><a href="/guides/" aria-current="page">Guides</a><a href="/occasions/">Occasions Québec</a><a href="/prix/">Prix des tôles</a><a href="/infolettre/">Infolettre</a><a href="/a-propos/">À propos</a><div class="lang-switch" role="navigation" aria-label="Langue"><a href="/guides/bricscad-dxf/" hreflang="fr" aria-current="true">FR</a><a href="/en/guides/bricscad-to-clean-dxf/" hreflang="en">EN</a></div>
+      </nav>
+    </div>
+  </header>
+  <div class="draft-banner" role="status"><strong>Brouillon — à réviser par Michaël.</strong> Cette page n’est pas encore une version publiée. Les paramètres de coupe et les prix ne sont cités que lorsqu’une source publique les donne.</div>
+  <main id="contenu">
+  
+  
+<div class="wrap prose">
+  <p class="crumb"><a href="/guides/">Guides</a> · BricsCAD</p>
+  <h1>De BricsCAD à un DXF propre</h1>
+  <p class="meta">Brouillon · mis à jour le 26 novembre 2026 · à réviser par Michaël</p>
+  <p class="lede">Un DXF « propre » pour SheetCam (ou un autre CAM 2D), c’est un fichier dont les unités, la version et la géométrie correspondent à ce que la FAO sait lire : contours fermés, pas d’objets mandataires, une précision adaptée à la machine.</p>
+
+  <h2>La commande officielle : DXFOUT</h2>
+  <p>D’après l’aide BricsCAD (Lite et Pro), <a href="https://help.bricsys.com/en-us/document/command-reference/d/dxfout-command?version=V26">DXFOUT</a> ouvre le dialogue pour enregistrer le dessin courant en DXF. Options documentées :</p>
+  <ul>
+    <li><strong>Nombre de décimales (0 à 16).</strong> L’aide précise que certaines machines CNC exigent 4 décimales dans le DXF.</li>
+    <li><strong>Entities.</strong> Permet d’exporter seulement les entités choisies. Si rien n’est précisé, toutes les entités sont exportées.</li>
+    <li><strong>Binary.</strong> Format binaire. Par défaut, le fichier est en ASCII (texte), généralement préférable pour le CAM.</li>
+    <li><strong>Version.</strong> Numéro de version du DXF. Par défaut : la plus récente. Exporter vers une version plus ancienne peut faire perdre des entités ou des propriétés.</li>
+  </ul>
+  <p>La commande <a href="https://helpcenter.bricsys.com/en-us/document/command-reference/e/export-command?version=V27">EXPORT</a> existe aussi pour d’autres formats ; pour un flux plasma typique, DXFOUT reste le point de départ officiel.</p>
+
+  <h2>Objets mandataires et nettoyage</h2>
+  <p>Si le dessin contient des objets AEC ou des objets personnalisés que le CAM ne reconnaît pas, l’aide BricsCAD documente <a href="https://help.bricsys.com/en-us/document/command-reference/e/exporttoautocad-command?version=V26">EXPORTTOAUTOCAD</a> pour les convertir en blocs natifs. WBLOCK peut aussi servir à extraire de la géométrie utilisable.</p>
+  <p>Avant l’export, un nettoyage habituel (PURGE des définitions inutilisées, y compris imbriquées ; consolidation ou suppression de calques avec les commandes de calques de BricsCAD) réduit les surprises à l’import. Vérifiez que les <strong>unités du dessin</strong> correspondent à celles que SheetCam attend (voir le piège des deux réglages d’unités dans le <a href="/guides/debuter-sheetcam/">guide SheetCam</a>).</p>
+
+  <h2>Liste de contrôle avant le CAM</h2>
+  <p>Les points suivants sont des pratiques d’atelier, à valider sur votre flux — pas des garanties du logiciel :</p>
+  <ul class="checklist">
+    <li>Unités du dessin confirmées (mm ou pouces) et notées pour l’import SheetCam.</li>
+    <li>Géométrie de coupe en 2D, contours fermés (polylignes ou arcs joints).</li>
+    <li>Calques séparés pour coupe, marquage, pliage ou gravure, selon votre convention.</li>
+    <li>Cartouche, cotes, hachures et texte de présentation exclus de l’export (option Entities) s’ils polluent le CAM.</li>
+    <li>Pas d’objets mandataires restants ; version DXF et nombre de décimales choisis (4 décimales si votre machine le demande).</li>
+    <li>Fichier ASCII plutôt que binaire, sauf raison précise.</li>
+  </ul>
+
+  <h2>À valider en atelier (Michaël)</h2>
+  <ul>
+    <li>Votre convention réelle de calques BricsCAD → SheetCam.</li>
+    <li>La version DXF et le nombre de décimales qui fonctionnent avec vos tables.</li>
+    <li>Les commandes exactes que vous utilisez (DXFOUT, EXPORT, WBLOCK, EXPORTTOAUTOCAD) selon les types de dessins (pièces simples vs. assemblages).</li>
+  </ul>
+
+  <h2>Sources</h2>
+  <ul class="source-list">
+    <li><a href="https://help.bricsys.com/en-us/document/command-reference/d/dxfout-command?version=V26">BricsCAD Help — commande DXFOUT (V26)</a>, consulté le 26 novembre 2026.</li>
+    <li><a href="https://help.bricsys.com/en-us/document/command-reference/e/exporttoautocad-command?version=V26">BricsCAD Help — EXPORTTOAUTOCAD (V26)</a>.</li>
+    <li><a href="https://helpcenter.bricsys.com/en-us/document/command-reference/e/export-command?version=V27">BricsCAD Help — EXPORT</a>.</li>
+  </ul>
+</div>
+
+  </main>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <a class="brand" href="/" style="color:#fffcf6">Coupe<span>Fab</span></a>
+        <p>Ressource francophone d’abord, pour les ateliers de découpe plasma et de fabrication métallique au Québec.</p>
+      </div>
+      <div>
+        <h2>Explorer</h2>
+        <p><a href="/guides/">Guides</a> / <a href="/occasions/">Occasions Québec</a> / <a href="/prix/">Prix des tôles</a> / <a href="/infolettre/">Infolettre</a></p>
+      </div>
+      <div>
+        <h2>Mentions</h2>
+        <p><a href="/a-propos/">À propos / contact</a><br><a href="/divulgation/">Divulgation (affiliations)</a><br><a href="/confidentialite/">Confidentialité et consentement (CASL)</a></p>
+      </div>
+    </div>
+    <p class="legal">© 2026 CoupeFab. Tous droits réservés. Consultation des sources publiques le 26 novembre 2026, fuseau America/Toronto (UTC−5). Aucun lien d’affiliation pour le moment.</p>
+  </footer>
+  <script src="/js/site.js" defer></script>
+</body>
+</html>
