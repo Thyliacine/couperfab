@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>From BricsCAD to a clean DXF — CoupeFab</title>
+  <meta name="description" content="Export a clean DXF from BricsCAD with DXFOUT, decimal precision, and proxy-object cleanup. Draft pending review.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://couperfab.vercel.app/en/guides/bricscad-to-clean-dxf/">
+  <link rel="alternate" hreflang="en-CA" href="https://couperfab.vercel.app/en/guides/bricscad-to-clean-dxf/">
+  <link rel="alternate" hreflang="fr-CA" href="https://couperfab.vercel.app/guides/bricscad-dxf/">
+  <link rel="alternate" hreflang="x-default" href="https://couperfab.vercel.app/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="From BricsCAD to a clean DXF — CoupeFab">
+  <meta property="og:description" content="Export a clean DXF from BricsCAD with DXFOUT, decimal precision, and proxy-object cleanup. Draft pending review.">
+  <meta property="og:url" content="https://couperfab.vercel.app/en/guides/bricscad-to-clean-dxf/">
+  <meta property="og:locale" content="en_CA">
+  <meta property="og:locale:alternate" content="fr_CA">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "From BricsCAD to a clean DXF — CoupeFab",
+  "description": "Export a clean DXF from BricsCAD with DXFOUT, decimal precision, and proxy-object cleanup. Draft pending review.",
+  "inLanguage": "en-CA",
+  "dateModified": "2026-11-26",
+  "url": "https://couperfab.vercel.app/en/guides/bricscad-to-clean-dxf/",
+  "author": {
+    "@type": "Organization",
+    "name": "CoupeFab"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "CoupeFab",
+    "url": "https://couperfab.vercel.app/"
+  }
+}
+</script>
+</head>
+<body>
+  <a class="skip" href="#contenu">Skip to content</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/en/">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="6" fill="#1B1D1B"/>
+          <path d="M5 11h22M5 21h22M5 16h9.2M18.2 16H27" stroke="#F4F1EA" stroke-width="2"/>
+          <rect x="14.2" y="14.2" width="4" height="3.6" fill="#B54300"/>
+        </svg>
+        Coupe<span>Fab</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-primary">Menu</button>
+      <nav class="primary" id="nav-primary">
+        <a href="/en/">Home</a><a href="/en/guides/" aria-current="page">Guides</a><a href="/en/used-equipment/">Used equipment</a><a href="/en/sheet-prices/">Sheet prices</a><a href="/en/newsletter/">Newsletter</a><a href="/en/about/">About</a><div class="lang-switch" role="navigation" aria-label="Language"><a href="/guides/bricscad-dxf/" hreflang="fr">FR</a><a href="/en/guides/bricscad-to-clean-dxf/" hreflang="en" aria-current="true">EN</a></div>
+      </nav>
+    </div>
+  </header>
+  <div class="draft-banner" role="status"><strong>Draft — to be reviewed by Michaël.</strong> This page is not a published version yet. Cut parameters and prices appear only when a public source gives them.</div>
+  <main id="contenu">
+  
+  
+<div class="wrap prose">
+  <p class="crumb"><a href="/en/guides/">Guides</a> · BricsCAD</p>
+  <h1>From BricsCAD to a clean DXF</h1>
+  <p class="meta">Draft · updated November 26, 2026 · to be reviewed by Michaël</p>
+  <p class="lede">A “clean” DXF for SheetCam (or another 2D CAM) is a file whose units, version, and geometry match what the CAM can read: closed contours, no proxy objects, and precision the machine can use.</p>
+
+  <h2>The official command: DXFOUT</h2>
+  <p>According to the BricsCAD (Lite and Pro) help, <a href="https://help.bricsys.com/en-us/document/command-reference/d/dxfout-command?version=V26">DXFOUT</a> saves the current drawing to DXF. Documented options:</p>
+  <ul>
+    <li><strong>Decimal places (0 to 16).</strong> The help notes that some CNC machines require 4 decimal places in DXF files.</li>
+    <li><strong>Entities.</strong> Export only the selected entities. If you leave this unspecified, everything is exported.</li>
+    <li><strong>Binary.</strong> Binary format. If unspecified, the file is ASCII (text), usually preferable for CAM.</li>
+    <li><strong>Version.</strong> DXF version number. The default is the most current. Exporting to an older version can drop entities or properties.</li>
+  </ul>
+  <p>The <a href="https://helpcenter.bricsys.com/en-us/document/command-reference/e/export-command?version=V27">EXPORT</a> command also exists for other formats. For a typical plasma workflow, DXFOUT is the official starting point.</p>
+
+  <h2>Proxy objects and cleanup</h2>
+  <p>If the drawing holds AEC or custom proxy objects the CAM will not recognize, BricsCAD documents <a href="https://help.bricsys.com/en-us/document/command-reference/e/exporttoautocad-command?version=V26">EXPORTTOAUTOCAD</a> to convert them into native blocks. WBLOCK can also extract usable geometry.</p>
+  <p>A usual cleanup before export (PURGE unused definitions, including nested ones; merge or delete leftover layers) reduces import surprises. Confirm that <strong>drawing units</strong> match what SheetCam expects (see the two unit settings in the <a href="/en/guides/getting-started-sheetcam/">SheetCam guide</a>).</p>
+
+  <h2>Pre-CAM checklist</h2>
+  <p>Shop practice to confirm on your own workflow — not a software guarantee:</p>
+  <ul class="checklist">
+    <li>Drawing units confirmed (mm or inches) and noted for the SheetCam import.</li>
+    <li>2D cutting geometry, closed contours (joined polylines or arcs).</li>
+    <li>Separate layers for cut, mark, bend, or etch, following your shop convention.</li>
+    <li>Title blocks, dimensions, hatches, and presentation text left out of the export (Entities option) if they clutter the CAM.</li>
+    <li>No leftover proxy objects; DXF version and decimal places chosen (4 places if your machine requires it).</li>
+    <li>ASCII rather than binary, unless you have a specific reason.</li>
+  </ul>
+
+  <h2>For Michaël to review</h2>
+  <ul>
+    <li>Your actual BricsCAD → SheetCam layer convention.</li>
+    <li>The DXF version and decimal setting that work on your tables.</li>
+    <li>Which commands you really use (DXFOUT, EXPORT, WBLOCK, EXPORTTOAUTOCAD) for simple parts versus assemblies.</li>
+  </ul>
+
+  <h2>Sources</h2>
+  <ul class="source-list">
+    <li><a href="https://help.bricsys.com/en-us/document/command-reference/d/dxfout-command?version=V26">BricsCAD Help — DXFOUT (V26)</a>, consulted November 26, 2026.</li>
+    <li><a href="https://help.bricsys.com/en-us/document/command-reference/e/exporttoautocad-command?version=V26">BricsCAD Help — EXPORTTOAUTOCAD (V26)</a>.</li>
+    <li><a href="https://helpcenter.bricsys.com/en-us/document/command-reference/e/export-command?version=V27">BricsCAD Help — EXPORT</a>.</li>
+  </ul>
+</div>
+
+  </main>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <a class="brand" href="/en/" style="color:#fffcf6">Coupe<span>Fab</span></a>
+        <p>A French-first resource for plasma cutting and metal fabrication shops in Quebec.</p>
+      </div>
+      <div>
+        <h2>Explore</h2>
+        <p><a href="/en/guides/">Guides</a> / <a href="/en/used-equipment/">Used equipment</a> / <a href="/en/sheet-prices/">Sheet prices</a> / <a href="/en/newsletter/">Newsletter</a></p>
+      </div>
+      <div>
+        <h2>Legal</h2>
+        <p><a href="/en/about/">About / contact</a><br><a href="/en/affiliate-disclosure/">Affiliate disclosure</a><br><a href="/en/privacy/">Privacy and CASL consent</a></p>
+      </div>
+    </div>
+    <p class="legal">© 2026 CoupeFab. All rights reserved. Public sources consulted on November 26, 2026, time zone America/Toronto (UTC−5). No affiliate links for now.</p>
+  </footer>
+  <script src="/js/site.js" defer></script>
+</body>
+</html>
