@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://couperfab.vercel.app/sitemap.xml
